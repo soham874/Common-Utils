@@ -14,10 +14,5 @@ setup(
     author='Soham Choudhury',
     author_email='soham874@gmail.com',
     url='https://github.com/soham874/Common-Utils',  # Replace with actual URL
-    classifiers=[
-        'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',  # Update if using a different license
-        'Operating System :: OS Independent',
-    ],
-    python_requires='>=3.6',  # Adjust based on your Python version requirements
+    python_requires='latest',  # Adjust based on your Python version requirements
 )
