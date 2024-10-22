@@ -14,5 +14,4 @@ setup(
     author='Soham Choudhury',
     author_email='soham874@gmail.com',
     url='https://github.com/soham874/Common-Utils',  # Replace with actual URL
-    python_requires='latest',  # Adjust based on your Python version requirements
 )
