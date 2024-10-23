@@ -9,7 +9,7 @@ setup(
     ],
     include_package_data=True,  # Ensures non-Python files (like README.MD) are included
     description='A utility package for common functions in the Softeam project',
-    long_description=open('README.MD').read(),
+    #long_description=open('README.MD').read(),
     long_description_content_type='text/markdown',
     author='Soham Choudhury',
     author_email='soham874@gmail.com',
