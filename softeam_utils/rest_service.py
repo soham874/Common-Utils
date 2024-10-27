@@ -1,6 +1,7 @@
 from softeam_common_config.log_config import get_logger
 import requests
 from urllib.parse import urlencode, urljoin
+import urllib.request
 
 log = get_logger(__name__)
 
@@ -30,3 +31,6 @@ def execute_rest_call(
 
 def get_param_parsed_url(baseURL,queryParams):
     return urljoin(baseURL, '?' + urlencode(queryParams))
+
+def download_file(file_url , save_name):
+    urllib.request.urlretrieve(file_url , save_name)

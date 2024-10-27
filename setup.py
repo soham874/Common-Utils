@@ -5,7 +5,9 @@ setup(
     version='0.1',
     packages=find_packages(),
     install_requires=[
-        'redis'
+        'redis',
+        'requests',
+        'confluent-kafka'
     ],
     include_package_data=True,  # Ensures non-Python files (like README.MD) are included
     description='A utility package for common functions in the Softeam project',
