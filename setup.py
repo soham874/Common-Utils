@@ -7,7 +7,8 @@ setup(
     install_requires=[
         'redis',
         'requests',
-        'confluent-kafka'
+        'confluent-kafka',
+        'Flask-APScheduler'
     ],
     include_package_data=True,  # Ensures non-Python files (like README.MD) are included
     description='A utility package for common functions in the Softeam project',
