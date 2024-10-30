@@ -34,8 +34,8 @@ def get_logger(name):
     logger.addHandler(handler)
 
     # Create a file handler to log warnings and errors to a file
-    file_handler = logging.FileHandler(f'Logs/info_{os.getpid()}.log')
-    file_handler.setLevel(logging.DEBUG)  # Set to capture warnings and above
+    file_handler = logging.FileHandler(f'Logs/WARN_ERR.log')
+    file_handler.setLevel(logging.WARNING)  # Set to capture warnings and above
 
     # Create a formatter for the log messages
     formatter = logging.Formatter('%(asctime)s -  %(process)d - %(name)s - %(levelname)s - %(message)s')
