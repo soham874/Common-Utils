@@ -8,7 +8,8 @@ setup(
         'redis',
         'requests',
         'confluent-kafka',
-        'Flask-APScheduler'
+        'Flask-APScheduler',
+        'mysql-connector-python'
     ],
     include_package_data=True,  # Ensures non-Python files (like README.MD) are included
     description='A utility package for common functions in the Softeam project',
