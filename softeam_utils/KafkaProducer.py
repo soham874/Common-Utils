@@ -14,14 +14,19 @@ def __delivery_report(err, msg):
 def publish_message(
     topic,
     payload,
-    key = None
+    key = None,
+    headers = None
 ):
     try:
+
+        headers = list(headers.items()) if headers else None
+
         producer.produce(
             topic, 
             key = key,
-            value=payload, 
-            callback=__delivery_report)
+            value = payload,
+            headers = headers, 
+            callback = __delivery_report)
         producer.flush()  # Ensure the message is sent
     except:
         traceback.print_exc()

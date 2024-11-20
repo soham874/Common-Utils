@@ -24,6 +24,9 @@ class KafkaConsumer():
 
         self.consumer = Consumer(conf)
         self.consumer.subscribe([topic_name])
+
+        log.info(f"Consumer subscribed in topic {topic_name} from group {group_id}")
+
         self.topic_name = topic_name
 
         self.func = None
@@ -52,7 +55,11 @@ class KafkaConsumer():
                 log.error(f"Kafka error: {msg.error()}")
             else:
                 log.debug(f"Received message: {msg.value().decode('utf-8')}")
-                return msg.value().decode('utf-8')
+                return {
+                    "key" : msg.key().decode('utf-8') if msg.key() else None,
+                    "headers" : dict(msg.headers()) if msg.headers() else None,
+                    "payload" : msg.value().decode('utf-8')
+                }
         else:
             log.debug(f"No message to poll from {self.topic_name}")
             return None
