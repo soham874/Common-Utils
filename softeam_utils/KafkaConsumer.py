@@ -34,7 +34,13 @@ class KafkaConsumer():
     def _schedule_task(self):
         log.debug(f"Intitating Kafka consumer for topic {self.topic_name} under group-id {conf['group.id']}, to be passed through {self.func.__name__}")
         #self.func("Hello 1")
-        @scheduler.task('interval', id=f'{self.func.__name__}_consumer_{os.getpid()}', seconds=1, max_instances=8)
+        @scheduler.task(
+                'interval', 
+                id=f'{self.func.__name__}_consumer_{os.getpid()}', 
+                seconds=1, 
+                max_instances=8,
+                misfire_grace_time = 5
+        )
         def execute_consumer_function():
             new_message = self.__consume_messages()
             if new_message:
