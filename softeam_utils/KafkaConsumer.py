@@ -1,5 +1,8 @@
 from flask_apscheduler import APScheduler
+
 from softeam_common_config.log_config import get_logger
+from softeam_common_config.tracer_config import *
+
 from confluent_kafka import Consumer, KafkaError
 import os
 
@@ -44,8 +47,9 @@ class KafkaConsumer():
         def execute_consumer_function():
             new_message = self.__consume_messages()
             if new_message:
-                log.debug(f"Sending {new_message} to {self.func.__name__}")
-                self.func(new_message)
+                with tracer.start_as_current_span(f'{self.func.__name__}_consumer_{os.getpid()}') as span:
+                    log.debug(f"Sending {new_message} to {self.func.__name__}")
+                    self.func(new_message)
             else:
                 log.debug("Nothing found yet")
 

@@ -1,12 +1,17 @@
 import logging
 import json
-import os
+
+from softeam_common_config.tracer_config import *
+from opentelemetry.trace import get_current_span
 
 logging.basicConfig(level=logging.WARNING)
 
 class JsonFormatter(logging.Formatter):
     def format(self, record):
+        span = get_current_span()
         data = {
+            'trace_id': format(span.get_span_context().trace_id, 'x') if span else None,
+            'span_id': format(span.get_span_context().span_id, 'x') if span else None,
             'time': self.formatTime(record),
             'process': record.process,
             'file': record.filename,

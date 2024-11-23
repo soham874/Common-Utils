@@ -9,7 +9,11 @@ setup(
         'requests',
         'confluent-kafka',
         'Flask-APScheduler',
-        'mysql-connector-python'
+        'mysql-connector-python',
+        'opentelemetry-api',
+        'opentelemetry-sdk',
+        'opentelemetry-exporter-otlp',
+        'opentelemetry-instrumentation-flask',
     ],
     include_package_data=True,  # Ensures non-Python files (like README.MD) are included
     description='A utility package for common functions in the Softeam project',
