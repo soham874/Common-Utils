@@ -2,6 +2,8 @@ from flask_apscheduler import APScheduler
 
 from softeam_common_config.log_config import get_logger
 from softeam_common_config.tracer_config import *
+from opentelemetry.propagate import extract
+from opentelemetry.trace import SpanKind
 
 from confluent_kafka import Consumer, KafkaError
 import os
@@ -47,7 +49,17 @@ class KafkaConsumer():
         def execute_consumer_function():
             new_message = self.__consume_messages()
             if new_message:
-                with tracer.start_as_current_span(f'{self.func.__name__}_consumer_{os.getpid()}') as span:
+
+                headers = new_message.get("headers", {})
+
+                carrier = {key: value.decode('utf-8') for key, value in headers.items()} if headers else {}
+                context = extract(carrier)
+
+                with tracer.start_as_current_span(
+                    f'{self.func.__name__}_consumer_{os.getpid()}',
+                    context = context, 
+                    kind=SpanKind.CONSUMER
+                ) as span:
                     log.debug(f"Sending {new_message} to {self.func.__name__}")
                     self.func(new_message)
             else:

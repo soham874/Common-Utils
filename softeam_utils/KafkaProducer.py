@@ -2,6 +2,8 @@ from confluent_kafka import Producer
 from softeam_common_config.log_config import get_logger
 import traceback
 
+from opentelemetry.propagate import inject
+
 producer = Producer({'bootstrap.servers': 'kafka:9093'})
 log = get_logger(__name__)
 
@@ -19,7 +21,13 @@ def publish_message(
 ):
     try:
 
-        headers = list(headers.items()) if headers else None
+        headers = list(headers.items()) if headers else []
+
+        carrier = {} 
+        inject(carrier)
+        
+        for k, v in carrier.items():
+            headers.append((k, v.encode('utf-8')))
 
         producer.produce(
             topic, 
