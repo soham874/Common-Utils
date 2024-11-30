@@ -2,6 +2,8 @@ from confluent_kafka import Producer
 from softeam_common_config.log_config import get_logger
 import traceback
 
+from datetime import datetime
+
 from opentelemetry.propagate import inject
 
 producer = Producer({'bootstrap.servers': 'kafka:9093'})
@@ -28,6 +30,7 @@ def publish_message(
         
         for k, v in carrier.items():
             headers.append((k, v.encode('utf-8')))
+        headers.append(('published-ts',datetime.now().isoformat()))
 
         producer.produce(
             topic, 
