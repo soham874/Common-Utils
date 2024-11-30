@@ -14,6 +14,8 @@ setup(
         'opentelemetry-sdk',
         'opentelemetry-exporter-otlp',
         'opentelemetry-instrumentation-flask',
+        'PyPDF2',
+        'sumy'
     ],
     include_package_data=True,  # Ensures non-Python files (like README.MD) are included
     description='A utility package for common functions in the Softeam project',
