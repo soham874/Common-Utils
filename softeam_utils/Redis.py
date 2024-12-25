@@ -49,3 +49,23 @@ def modify_with_lock(key, new_value):
     
 def append_to_list(key, new_object_to_append):
     redis_client.rpush(key, json.dumps(new_object_to_append))
+
+def add_to_list(list_key,items):
+    # Use RPUSH to add items to the end of the list
+    for item in items:
+        redis_client.rpush(list_key, item)
+
+# 2. Get all items from the list
+def get_list(list_key):
+    # Use LRANGE to get all items from the list
+    return redis_client.lrange(list_key, 0, -1)
+
+# 3. Remove a specific item from the list
+def remove_from_list(list_key,item):
+    # Use LREM to remove a specific item from the list
+    redis_client.lrem(list_key, 0, item)
+
+# 4. Clear the entire list
+def clear_list(list_key):
+    # Use DEL to delete the key entirely
+    redis_client.delete(list_key)
